@@ -43,10 +43,10 @@ bindsym $mod+d exec j4-dmenu-desktop
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -55,10 +55,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+#bindsym $mod+Shift+j move left
+#bindsym $mod+Shift+k move down
+#bindsym $mod+Shift+l move up
+#bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -137,7 +137,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 bindsym $mod+Shift+grave move scratchpad
-bindsym $mod+grave show
+bindsym $mod+grave scratchpad show
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -147,10 +147,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+#        bindsym j resize shrink width 10 px or 10 ppt
+#        bindsym k resize grow height 10 px or 10 ppt
+#        bindsym l resize shrink height 10 px or 10 ppt
+#        bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -172,7 +172,8 @@ bindsym XF86MonBrightnessDown exec light -U 3
 
 ### Print screen
 bindsym --release Print                   exec --no-startup-id scrot -m '%Y%m%d-%H%M%S.png' -e 'mv $f ~/Nextcloud/raffle/screenshots/'
-bindsym --release $mod+Print              exec --no-startup-id scrot -s '%Y%m%d-%H%M%S.png' -e 'mv $f ~/Nextcloud/raffle/screenshots/'
+#bindsym --release $mod+Print              exec --no-startup-id scrot -s '%Y%m%d-%H%M%S.png' -e 'mv $f ~/Nextcloud/raffle/screenshots/'
+bindsym --release $mod+Print              exec --no-startup-id scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 ### Audio volume
 bindsym XF86AudioMute                   exec --no-startup-id "pactl set-sink-mute 1 toggle"
@@ -194,17 +195,35 @@ mode "mode_mic" {
 }
 bindsym $mod+m mode "mode_mic"
 
+# lock screen
+bindsym Mod4+l exec i3lock
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3status
+#    status_command i3status
+#    status_command i3status --config ~/.config/i3/i3status.conf
+
+    font pango:FontAwesome, DejaVu Sans Mono 9
+    position top
+    status_command i3status-rs ~/.config/i3/i3status-rust.toml
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
 }
 
 
 ## my
 
-exec --no-startup-id "setxkbmap -layout us,ru"
-exec --no-startup-id "setxkbmap -option 'grp:caps_toggle'"
-exec "compton -c -r4 -l-6 -t-4 -z -b -G -C -e0.85 -f -D30 -I0.45 -O0.45 --paint-on-overlay --unredir-if-possible --backend glx --glx-no-stencil --glx-no-rebind-pixmap --inactive-dim 0.2 --no-fading-openclose --inactive-dim-fixed --config /dev/null"
-#exec "compton --vsync opengl --inactive-dim 0.2 --no-fading-openclose --inactive-dim-fixed --config /dev/null"
+exec --no-startup-id setxkbmap -layout us,ru
+exec --no-startup-id setxkbmap -option 'grp:caps_toggle'
+exec "compton -c -r4 -l-6 -t-4 -z -b -G -C -e0.85 -f -D30 -I0.45 -O0.45 --paint-on-overlay --unredir-if-possible --backend glx --glx-no-stencil --glx-no-rebind-pixmap --inactive-dim 0.1 --no-fading-openclose --inactive-dim-fixed --config /dev/null"
 exec --no-startup-id hsetroot -solid '#000000'
+exec --no-startup-id dunst
+exec --no-startup-id nm-applet
