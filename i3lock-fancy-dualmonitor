@@ -221,6 +221,8 @@ else # Bright colors
         "--ringwrongcolor=00000055" "--insidewrongcolor=0000001c")
 fi
 
+xkb-switch -s us
+
 # If invoked with -d/--desktop, we'll attempt to minimize all windows (ie. show
 # the desktop) before locking.
 ${desktop} ${desktop:+-k on}
@@ -234,3 +236,7 @@ fi
 # As above, if we were passed -d/--desktop, we'll attempt to restore all windows
 # after unlocking.
 ${desktop} ${desktop:+-k off}
+
+sleep 10
+#xset dpms force suspend
+xset dpms force off

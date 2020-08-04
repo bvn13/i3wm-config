@@ -1,5 +1,55 @@
-theme = "solarized-dark"
-icons = "awesome"
+#theme = "solarized-dark"
+[[theme]]
+name = "modern"
+[theme.overrides]
+idle_bg = "#123456"
+idle_fg = "#abcdef"
+[[icons]]
+name = "awesome"
+
+[[block]]
+block = "toggle"
+interval = 3
+text = "NO BLANK"
+command_state = "xset q | grep 'DPMS is Disabled'"
+#command_on = "xset s off -dpms; xset s 300 300"
+#command_off = "xset s on +dpms"
+command_on = "xset dpms force on"
+command_off = "xset reset"
+
+[[block]]
+block = "toggle"
+interval = 1
+text = "ZOOM"
+command_state = "pactl list short | grep bluez_sink.2C_4D_79_47_42_9F.headset_head_unit"
+command_on = "pactl set-card-profile bluez_card.2C_4D_79_47_42_9F headset_head_unit"
+command_off = "pactl set-card-profile bluez_card.2C_4D_79_47_42_9F a2dp_sink"
+
+[[block]]
+block = "custom"
+command = '''
+case "$(xset -q|grep LED| awk '{ print $10 }')" in
+  "00000002") KBD="En" ;;
+  "00000000") KBD="En" ;;
+  "00001002") KBD="Ru" ;;
+  "00001000") KBD="Ru" ;;
+  *) KBD="unknown" ;;
+esac; echo $KBD
+'''
+interval = 0.5
+on_click = '''
+case "$(xset -q|grep LED| awk '{ print $10 }')" in
+  "00000002") NEXT_KBD="ru" ;;
+  "00000000") NEXT_KBD="ru" ;;
+  "00001002") NEXT_KBD="us" ;;
+  "00001000") NEXT_KBD="us" ;;
+  *) NEXT_KBD="unknown" ;;
+esac; xkb-switch -s $NEXT_KBD
+'''
+
+[[block]]
+block = "backlight"
+device = "intel_backlight"
 
 [[block]]
 block = "disk_space"
@@ -22,12 +72,13 @@ block = "cpu"
 interval = 1
 
 [[block]]
-block = "load"
-interval = 1
-format = "{1m}"
+block = "sound"
+on_click = "amixer -D pulse sset Master toggle"
 
 [[block]]
-block = "sound"
+block = "bluetooth"
+mac = "2C:4D:79:47:42:9F"
+label = " BT"
 
 [[block]]
 block = "time"
