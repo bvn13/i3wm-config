@@ -47,9 +47,9 @@ bindsym $mod+Shift+q kill
 #bindsym $mod+Shift+d exec dmenu_run
 #bindsym $mod+d exec j4-dmenu-desktop
 
-bindsym --release $mod+Shift+d exec "rofi -show run"
-bindsym --release $mod+d exec "rofi -show drun"
-bindsym --release $mod+Control+d exec "rofi -show window"
+bindsym --release $mod+Shift+d exec "xkb-switch -s us && rofi -show run"
+bindsym --release $mod+d exec "xkb-switch -s us && rofi -show drun"
+bindsym --release $mod+Control+d exec "xkb-switch -s us && rofi -show window"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -153,6 +153,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+b exec "~/.config/i3/rofi-btooth"
 
 bindsym $mod+Shift+grave move scratchpad
 bindsym $mod+grave scratchpad show
@@ -194,12 +195,12 @@ bindsym --release Print                   exec --no-startup-id scrot -m '%Y%m%d-
 bindsym --release $mod+Print              exec --no-startup-id scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 ### Audio volume
-bindsym XF86AudioMute                   exec --no-startup-id "amixer -D pulse sset Master toggle"
-bindsym XF86AudioRaiseVolume            exec --no-startup-id "amixer -D pulse sset Master 10%+"
-bindsym Shift+XF86AudioRaiseVolume      exec --no-startup-id "amixer -D pulse sset Master 5%+"
-bindsym XF86AudioLowerVolume            exec --no-startup-id "amixer -D pulse sset Master 10%-"
-bindsym Shift+XF86AudioLowerVolume      exec --no-startup-id "amixer -D pulse sset Master 5%-"
-bindsym XF86AudioMicMute                exec --no-startup-id "amixer -D pulse sset Capture toggle"
+bindsym XF86AudioMute                   exec --no-startup-id amixer -D pulse sset Master toggle
+bindsym XF86AudioRaiseVolume            exec --no-startup-id amixer -D pulse sset Master 10%+
+bindsym Shift+XF86AudioRaiseVolume      exec --no-startup-id amixer -D pulse sset Master 5%+
+bindsym XF86AudioLowerVolume            exec --no-startup-id amixer -D pulse sset Master 10%-
+bindsym Shift+XF86AudioLowerVolume      exec --no-startup-id amixer -D pulse sset Master 5%-
+bindsym XF86AudioMicMute                exec --no-startup-id amixer -D pulse sset Capture toggle
 
 
 mode "mode_mic" {

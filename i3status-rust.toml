@@ -12,10 +12,10 @@ block = "toggle"
 interval = 3
 text = "NO BLANK"
 command_state = "xset q | grep 'DPMS is Disabled'"
-#command_on = "xset s off -dpms; xset s 300 300"
-#command_off = "xset s on +dpms"
-command_on = "xset dpms force on"
-command_off = "xset reset"
+command_on = "xset s off -dpms"
+command_off = "xset s on +dpms"
+#command_on = "xset dpms force on"
+#command_off = "xset reset"
 
 [[block]]
 block = "toggle"
@@ -79,6 +79,12 @@ on_click = "amixer -D pulse sset Master toggle"
 block = "bluetooth"
 mac = "2C:4D:79:47:42:9F"
 label = " BT"
+
+[[block]]
+block = "custom"
+command = "echo 'pair'"
+interval = 600
+on_click = "~/.config/i3/rofi-btooth"
 
 [[block]]
 block = "time"
