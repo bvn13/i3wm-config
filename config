@@ -247,7 +247,7 @@ exec --no-startup-id "setxkbmap -layout us,ru -option grp:caps_toggle"
 
 #exec "compton -c -r4 -l-6 -t-4 -z -b -G -C -e0.85 -f -D30 -I0.45 -O0.45 --paint-on-overlay --unredir-if-possible --backend glx --glx-no-stencil --glx-no-rebind-pixmap --inactive-dim 0.1 --no-fading-openclose --inactive-dim-fixed --config /dev/null"
 
-exec "compton -b -G -C -f -D30 -I0.45 -O0.45 --paint-on-overlay --unredir-if-possible --backend glx --glx-no-stencil --glx-no-rebind-pixmap --no-fading-openclose --inactive-dim-fixed --config /dev/null"
+exec "compton -b -G -C -f -D30 -I0.45 -O0.45 --paint-on-overlay --unredir-if-possible --backend glx --glx-no-stencil --glx-no-rebind-pixmap --no-fading-openclose --inactive-dim-fixed --config /dev/null --vsync opengl"
 
 exec --no-startup-id "hsetroot -solid '#000000'"
 exec --no-startup-id "dunst"

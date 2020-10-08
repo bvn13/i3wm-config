@@ -82,7 +82,7 @@ label = " BT"
 
 [[block]]
 block = "custom"
-command = "echo 'pair'"
+command = "echo 'pair >'"
 interval = 600
 on_click = "~/.config/i3/rofi-btooth"
 
