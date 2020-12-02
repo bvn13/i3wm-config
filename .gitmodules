@@ -1,0 +1,3 @@
+[submodule "i3-auto-layout"]
+	path = i3-auto-layout
+	url = https://github.com/chmln/i3-auto-layout.git
